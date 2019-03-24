@@ -1,17 +1,16 @@
 #include "player.hpp"
 #include "spaceInvader.hpp"
 
-Player::Player(int x, int y){
+Player::Player(int x, int y)
+:velocity{8.0},
+laserVelocity{4},
+laserFired{false},
+isDestroyed{false}
+{
   shape.x = x;
   shape.y = y;
   shape.w = playerWidth;
   shape.h = playerHeight;
-
-  velocity = 8.0;
-  laserVelocity = 4;
-
-  laserFired = false;
-  isDestroyed = false;
 }
 
 void Player::moveLeft(){

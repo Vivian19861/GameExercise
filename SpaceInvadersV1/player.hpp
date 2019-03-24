@@ -22,7 +22,7 @@ struct LaserShot{
 class Player{
 public:
   SDL_Rect shape;
-  Player(int x, int y);
+  explicit Player(int x, int y);
   double velocity, laserVelocity;
   bool laserFired;
   bool isDestroyed;

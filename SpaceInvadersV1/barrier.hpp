@@ -6,7 +6,7 @@
 class Barrier{
 public:
   SDL_Rect shape;
-  Barrier(int x, int y, int w, int h);
+  explicit Barrier(int x, int y, int w, int h);
   int life;
 };
 

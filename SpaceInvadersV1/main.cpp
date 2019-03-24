@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <memory>
 
 #include "SDL_image.h"
 #include "SDL_mixer.h"
@@ -17,7 +18,7 @@ SDL_Renderer* gRender = NULL;
 SDL_Texture* backgroundTexture;
 SDL_Rect backgroundRect;
 SDL_Texture* playerTexture;
-Player* player;
+std::unique_ptr<Player> player(new Player(windowWidth/2 - playerWidth/2, windowHeight - playerHeight));
 bool quit = false;
 std::vector<Alien> aliens;
 SDL_Texture* alienTexture;
@@ -79,7 +80,6 @@ void init(){
 
   //initialize Player
   playerTexture = IMG_LoadTexture(gRender, "player.png");
-  player = new Player(windowWidth/2 - playerWidth/2, windowHeight - playerHeight);
 
   //initialize aliens
   alienTexture = IMG_LoadTexture(gRender, "invaders3.png");
@@ -301,23 +301,33 @@ void render(){
 
 void close(){
   SDL_DestroyTexture(backgroundTexture);
+  backgroundTexture = nullptr;
   SDL_DestroyTexture(playerTexture);
+  playerTexture = nullptr;
   SDL_DestroyTexture(alienTexture);
+  alienTexture = nullptr;
   SDL_DestroyTexture(alienDeadTexture);
+  alienDeadTexture = nullptr;
   SDL_DestroyTexture(barrierCompleteTexture);
+  barrierCompleteTexture = nullptr;
   SDL_DestroyTexture(barrierDamagedTexture);
+  barrierDamagedTexture = nullptr;
   SDL_DestroyTexture(barrierFinalDamagedTexture);
+  barrierFinalDamagedTexture = nullptr;
   SDL_DestroyTexture(font_image_score);
+  font_image_score = nullptr;
   SDL_DestroyTexture(font_image_winner);
+  font_image_winner = nullptr;
   SDL_DestroyTexture(font_image_restart);
+  font_image_restart = nullptr;
 
   Mix_FreeChunk(alien_hit_sound);
   Mix_CloseAudio();
 
   SDL_DestroyRenderer(gRender);
-  gRender = NULL;
+  gRender = nullptr;
   SDL_DestroyWindow(gWindow);
-  gWindow = NULL;
+  gWindow = nullptr;
 
   SDL_Quit();
 }

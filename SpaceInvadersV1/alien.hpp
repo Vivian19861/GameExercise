@@ -22,7 +22,7 @@ struct Shot{
 class Alien{
 public:
   SDL_Rect shape;
-  Alien(int x, int y);
+  explicit Alien(int x, int y);
   double velocity, shotVelocity;
   bool shotFired;
   bool isDestroyed;

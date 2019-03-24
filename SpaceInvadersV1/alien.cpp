@@ -3,15 +3,16 @@
 #include "alien.hpp"
 #include "spaceInvader.hpp"
 
-Alien::Alien(int x, int y){
+Alien::Alien(int x, int y)
+:velocity{2.0},
+shotVelocity{3},
+shotFired{false},
+isDestroyed{false}
+{
   shape.x = x;
   shape.y = y;
   shape.w = alienWidth;
   shape.h = alienHeight;
-  velocity = 2.0;
-  shotVelocity = 3;
-  shotFired = false;
-  isDestroyed = false;
 }
 
 void Alien::moveRight(){
