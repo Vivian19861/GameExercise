@@ -150,7 +150,7 @@ void inputHandling(){
 }
 
 void update(){
-  if(player->laserFired == true){
+  if(player->getLaserFired() == true){
     player->updateShots();
   }
 
@@ -162,45 +162,45 @@ void update(){
   //alien movement
   for(auto& alien:aliens){
     //check alien movement direction
-    if(alien.shape.x >= windowWidth){
+    if(alien.getShape().x >= windowWidth){
       alienMoveRight = false;
       alienMoveDown = true;
     }
-    if(alien.shape.x <= 0){
+    if(alien.getShape().x <= 0){
       alienMoveRight = true;
       alienMoveDown = true;
     }
 
     //produce randow alien shots
-    if(alien.shotFired){
+    if(alien.getShotFired()){
       alien.updateShots();
     }
 
     //check collision, player's shots with alien
-    if(player->didLaserHit(alien.shape)){
-      alien.isDestroyed = true;
+    if(player->didLaserHit(alien.getShape())){
+      alien.setIsDestroyed(true);
       Mix_PlayChannel(-1, alien_hit_sound, 0);
       score+=30;
       score_changed = true;
     }
 
     //check collision, alien's shots with player
-    if(alien.didShotHit(player->shape)){
-      player->isDestroyed = true;
+    if(alien.didShotHit(player->getShape())){
+      player->setIsDestroyed(true);
     }
 
     //check collision, alien's shots with barrier
     for(auto& barrier:barriers){
-      if(alien.didShotHit(barrier.shape)){
-        barrier.life--;
+      if(alien.didShotHit(barrier.getShape())){
+        barrier.decreaseLife();
       }
     }
   }
 
   //check collision, player's shots with barrier
   for(auto& barrier:barriers){
-    if(player->didLaserHit(barrier.shape)){
-      barrier.life--;
+    if(player->didLaserHit(barrier.getShape())){
+      barrier.decreaseLife();
     }
   }
 
@@ -223,9 +223,10 @@ void render(){
   //Render background
   SDL_RenderCopy(gRender, backgroundTexture, NULL, &backgroundRect);
   //Render player
-  if(player->isDestroyed == false){
-    SDL_RenderCopy(gRender, playerTexture, NULL, &(player->shape));
-    std::vector<LaserShot> lasers = player->lasers;
+  if(player->getIsDestroyed() == false){
+    SDL_Rect shape = player->getShape();
+    SDL_RenderCopy(gRender, playerTexture, NULL, &shape);
+    std::vector<LaserShot> lasers = player->getLasers();
     for(auto& laser:lasers){
       SDL_SetRenderDrawColor(gRender, 255,255,255,255);
       SDL_RenderFillRect(gRender, &laser.shape);
@@ -243,12 +244,13 @@ void render(){
 
   //Render aliens
   for(auto it=aliens.begin(); it!=aliens.end();){
-    if(it->isDestroyed == true){
-      SDL_RenderCopy(gRender, alienDeadTexture, NULL, &it->shape);
+    SDL_Rect shape = it->getShape();
+    if(it->getIsDestroyed() == true){
+      SDL_RenderCopy(gRender, alienDeadTexture, NULL, &shape);
       it = aliens.erase(it);
     } else {
-      SDL_RenderCopy(gRender, alienTexture, NULL, &it->shape);
-      std::vector<Shot> shots = it->shots;
+      SDL_RenderCopy(gRender, alienTexture, NULL, &shape);
+      std::vector<Shot> shots = it->getShots();
       for(auto& shot:shots){
         SDL_SetRenderDrawColor(gRender, 255, 255, 255, 255);
         SDL_RenderFillRect(gRender, &shot.shape);
@@ -259,16 +261,17 @@ void render(){
 
   //Render barriers
   for(auto it=barriers.begin(); it!=barriers.end();){
-    if(it->life == 10){
-      SDL_RenderCopy(gRender, barrierCompleteTexture, NULL, &it->shape);
+    SDL_Rect shape = it->getShape();
+    if(it->getLife() == 10){
+      SDL_RenderCopy(gRender, barrierCompleteTexture, NULL, &shape);
       ++it;
-    } else if(it->life < 10 && it->life > 5){
-      SDL_RenderCopy(gRender, barrierDamagedTexture, NULL, &it->shape);
+    } else if(it->getLife() < 10 && it->getLife() > 5){
+      SDL_RenderCopy(gRender, barrierDamagedTexture, NULL, &shape);
       ++it;
-    } else if(it->life <=5 && it->life > 0){
-      SDL_RenderCopy(gRender, barrierFinalDamagedTexture, NULL, &it->shape);
+    } else if(it->getLife() <=5 && it->getLife() > 0){
+      SDL_RenderCopy(gRender, barrierFinalDamagedTexture, NULL, &shape);
       ++it;
-    } else if(it->life == 0){
+    } else if(it->getLife() == 0){
       it = barriers.erase(it);
     }
   }

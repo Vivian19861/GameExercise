@@ -5,9 +5,14 @@
 
 class Barrier{
 public:
-  SDL_Rect shape;
   explicit Barrier(int x, int y, int w, int h);
+  int getLife();
+  void decreaseLife();
+  SDL_Rect getShape();
+
+private:
   int life;
+  SDL_Rect shape;
 };
 
 #endif

@@ -21,16 +21,23 @@ struct LaserShot{
 
 class Player{
 public:
-  SDL_Rect shape;
   explicit Player(int x, int y);
-  double velocity, laserVelocity;
-  bool laserFired;
-  bool isDestroyed;
-  std::vector<LaserShot> lasers;
   void moveRight();
   void moveLeft();
   void fireLaser();
   void updateShots();
   bool didLaserHit(SDL_Rect temp);
+  bool getLaserFired();
+  SDL_Rect getShape();
+  void setIsDestroyed(bool isDestroyed);
+  bool getIsDestroyed();
+  std::vector<LaserShot> getLasers();
+
+private:
+  SDL_Rect shape;
+  double velocity, laserVelocity;
+  bool laserFired;
+  bool isDestroyed;
+  std::vector<LaserShot> lasers;
 };
 #endif

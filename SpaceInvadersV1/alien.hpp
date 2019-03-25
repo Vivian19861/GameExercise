@@ -21,12 +21,7 @@ struct Shot{
 
 class Alien{
 public:
-  SDL_Rect shape;
   explicit Alien(int x, int y);
-  double velocity, shotVelocity;
-  bool shotFired;
-  bool isDestroyed;
-  std::vector<Shot> shots;
   void moveRight();
   void moveLeft();
   void moveDown();
@@ -34,6 +29,18 @@ public:
   void fireShot();
   void updateShots();
   bool didShotHit(SDL_Rect temp);
+  SDL_Rect getShape();
+  bool getShotFired();
+  void setIsDestroyed(bool isDestroyed);
+  bool getIsDestroyed();
+  std::vector<Shot> getShots();
+
+private:
+  SDL_Rect shape;
+  double velocity, shotVelocity;
+  bool shotFired;
+  bool isDestroyed;
+  std::vector<Shot> shots;
 };
 
 #endif

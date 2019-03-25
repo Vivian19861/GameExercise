@@ -54,3 +54,23 @@ bool Alien::didShotHit(SDL_Rect temp){
   }
   return false;
 }
+
+SDL_Rect Alien::getShape(){
+  return shape;
+}
+
+bool Alien::getShotFired(){
+  return shotFired;
+}
+
+void Alien::setIsDestroyed(bool isDestroyed){
+  this->isDestroyed = isDestroyed;
+}
+
+bool Alien::getIsDestroyed(){
+  return isDestroyed;
+}
+
+std::vector<Shot> Alien::getShots(){
+  return shots;
+}
