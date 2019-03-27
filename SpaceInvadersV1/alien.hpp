@@ -30,9 +30,9 @@ public:
   void updateShots();
   bool didShotHit(SDL_Rect temp);
   SDL_Rect getShape();
-  bool getShotFired();
+  bool getShotFired() { return shotFired; }
   void setIsDestroyed(bool isDestroyed);
-  bool getIsDestroyed();
+  bool getIsDestroyed() { return isDestroyed; }
   std::vector<Shot> getShots();
 
 private:

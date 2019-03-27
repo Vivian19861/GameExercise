@@ -27,10 +27,10 @@ public:
   void fireLaser();
   void updateShots();
   bool didLaserHit(SDL_Rect temp);
-  bool getLaserFired();
+  bool getLaserFired() { return laserFired; }
   SDL_Rect getShape();
   void setIsDestroyed(bool isDestroyed);
-  bool getIsDestroyed();
+  bool getIsDestroyed() { return isDestroyed; }
   std::vector<LaserShot> getLasers();
 
 private:

@@ -9,10 +9,6 @@ Barrier::Barrier(int x, int y, int w, int h)
   shape.h = h;
 }
 
-int Barrier::getLife(){
-  return life;
-}
-
 void Barrier::decreaseLife(){
   life--;
 }

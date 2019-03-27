@@ -6,9 +6,9 @@
 class Barrier{
 public:
   explicit Barrier(int x, int y, int w, int h);
-  int getLife();
   void decreaseLife();
   SDL_Rect getShape();
+  inline int getLife() { return life; }
 
 private:
   int life;

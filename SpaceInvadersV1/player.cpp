@@ -55,20 +55,12 @@ bool Player::didLaserHit(SDL_Rect temp){
   return false;
 }
 
-bool Player::getLaserFired(){
-  return laserFired;
-}
-
 SDL_Rect Player::getShape(){
   return shape;
 }
 
 void Player::setIsDestroyed(bool isDestroyed){
   this->isDestroyed = isDestroyed;
-}
-
-bool Player::getIsDestroyed(){
-  return isDestroyed;
 }
 
 std::vector<LaserShot> Player::getLasers(){
