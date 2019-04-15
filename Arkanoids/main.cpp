@@ -1,7 +1,6 @@
 #include <vector>
 #include <cstdlib>
 #include <cmath>
-#include <bits/stdc++.h>
 
 #include "SDL.h"
 #include "SDL_mixer.h"
@@ -78,7 +77,7 @@ struct Brick{
   float bottom() { return shape.y+blockHeight; }
 };
 
-void testCollision(Paddle& paddle, Ball& ball, Mix_Chunk* paddle_sound){
+void testCollision(const Paddle& paddle, Ball& ball, Mix_Chunk* paddle_sound){
   if(!SDL_HasIntersection(&paddle.shape, &ball.shape)) return;
 
   Mix_PlayChannel(-1, paddle_sound, 0);
