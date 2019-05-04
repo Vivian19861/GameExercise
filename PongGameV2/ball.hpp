@@ -3,7 +3,7 @@
 
 #include "paddle.hpp"
 
-class Ball{
+class Ball {
 public:
   Ball(int x, int y);
   ~Ball();
@@ -11,8 +11,8 @@ public:
   void updateLocation();
   void reset();
   void update_speed();
-  bool collides_with(Paddle* paddle);
-  void bounces_off(Paddle *paddle);
+  bool collides_with(const Paddle &paddle);
+  void bounces_off(const Paddle &paddle);
   bool wall_collision();
 
   static const int LENGTH;

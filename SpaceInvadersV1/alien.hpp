@@ -7,10 +7,10 @@
 
 constexpr int alienWidth{30}, alienHeight{30};
 
-struct Shot{
+struct Shot {
   SDL_Rect shape;
 
-  Shot(int x, int y){
+  Shot(int x, int y) {
     shape.x = x;
     shape.y = y;
     shape.w = 5;
@@ -19,7 +19,7 @@ struct Shot{
   double velocity;
 };
 
-class Alien{
+class Alien {
 public:
   explicit Alien(int x, int y);
   void moveRight();
@@ -33,14 +33,13 @@ public:
   bool getShotFired() { return shotFired; }
   void setIsDestroyed(bool isDestroyed);
   bool getIsDestroyed() { return isDestroyed; }
-  std::vector<Shot> getShots();
+  std::vector<Shot> shots;
 
 private:
   SDL_Rect shape;
   double velocity, shotVelocity;
   bool shotFired;
   bool isDestroyed;
-  std::vector<Shot> shots;
 };
 
 #endif
